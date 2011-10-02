@@ -19,3 +19,5 @@ Example:
 `EXCEPTION(Exception, Existential_Observation );
     EXCEPTION(Existential_Observation, Pastafarism_Observation );`
 
+Note that the base "Exception" class derivate from std::exception.
+
