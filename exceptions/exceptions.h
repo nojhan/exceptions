@@ -59,14 +59,14 @@ public:
         Use the E_INFOS macro to raise the exception, for example :
             throw( Exception( "Shit evolves", E_INFOS );
     */
-    Exception( const std::string & desc, const std::string & func, const std::string & f, const int l ) 
+    Exception( const std::string & desc, const std::string & func, const std::string & f, const int l )
         : description(desc), function(func), file(f), line(l) {}
 
     //! The destructor is not allowed to throw exceptions
     virtual ~Exception() throw () {}
 
     //! The method to use for printing the complete description of the exception
-    std::string what()
+    std::string what() const
     {
         std::ostringstream msg;
         msg << description << " (<" << name << "> in " << function << " at " << file << ":" << line << ")";
