@@ -19,7 +19,7 @@ Example
 #include <iostream>
 #include <iomanip>
 
-#include "exceptions.h" 
+#include <exceptions/exceptions.h>
 
 // Use this macro to build up your hierarchy of exceptions
 EXCEPTION( Exception, Existential_Observation );

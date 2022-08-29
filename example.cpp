@@ -5,7 +5,7 @@
 #include <sstream>
 #include <stdexcept>
 
-#include "exceptions.h" 
+#include "exceptions/exceptions.h" 
 
 // Use this macro to build up your hierarchy of exceptions
 EXCEPTION( Exception, Existential_Observation );
