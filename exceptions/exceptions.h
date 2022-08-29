@@ -19,7 +19,7 @@
       EXCEPTION(Exception,Buddhist_Observation);
       creates an new exception class "Buddhist_Observation", derived from the base "Exception"
 */
-#define EXCEPTION(Super,Current) class Current : public Super {public: Current ( const std::string & desc, const std::string & func="?", const std::string & f="?", const int l=-1 ) : Super (desc,func,f,l) {name = #Current;} }
+#define EXCEPTION(Super,Current) class Current : public Super {public: Current ( const std::string & desc, const std::string & func="?", const std::string & f="?", const int l=-1, const std::string & n=#Current ) : Super (desc,func,f,l,n) {} }
 
 
 /** A shortcut to throw an exception without having to type ",E_INFOS"
@@ -50,6 +50,9 @@ protected:
     //! Line where the exception has been raised
     int line;
 
+    //! Assembled message
+    std::string message;
+
 public:
     //! Constructor of the exception
     /*!
@@ -59,19 +62,21 @@ public:
         Use the E_INFOS macro to raise the exception, for example :
             throw( Exception( "Shit evolves", E_INFOS );
     */
-    Exception( const std::string & desc, const std::string & func, const std::string & f, const int l )
-        : description(desc), function(func), file(f), line(l) {}
+    Exception( const std::string & desc, const std::string & func, const std::string & f, const int l, const std::string & n = "Exception" )
+        : description(desc), function(func), file(f), line(l), name(n)
+        {
+            std::ostringstream msg;
+            msg << "<" << name << "> " << description << "\t\t" << function << " @ " << file << ":" << line << "";
+            message = msg.str();
+        }
 
     //! The destructor is not allowed to throw exceptions
     virtual ~Exception() throw () {}
 
     //! The method to use for printing the complete description of the exception
-    std::string what() const
+    const char* what() const noexcept
     {
-        std::ostringstream msg;
-        msg << description << " (<" << name << "> in " << function << " at " << file << ":" << line << ")";
-
-        return msg.str();
+        return message.c_str();
     }
 };
 
