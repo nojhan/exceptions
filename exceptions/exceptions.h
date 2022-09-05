@@ -1,5 +1,6 @@
-#ifndef __EXCEPTIONS_H__
-#define __EXCEPTIONS_H__
+#pragma once
+#ifndef EXCEPTIONS_H
+#define EXCEPTIONS_H
 
 #include <string>
 #include <sstream>
@@ -35,8 +36,6 @@
 class Exception : public std::exception
 {
 protected:
-    //! Name of the current exception class
-    std::string name;
 
     //! Description of the exception
     std::string description;
@@ -49,6 +48,9 @@ protected:
 
     //! Line where the exception has been raised
     int line;
+
+    //! Name of the current exception class
+    std::string name;
 
     //! Assembled message
     std::string message;
@@ -71,7 +73,7 @@ public:
         }
 
     //! The destructor is not allowed to throw exceptions
-    virtual ~Exception() throw () {}
+    virtual ~Exception() noexcept {}
 
     //! The method to use for printing the complete description of the exception
     const char* what() const noexcept
@@ -80,5 +82,5 @@ public:
     }
 };
 
-#endif // __EXCEPTIONS_H__
+#endif // EXCEPTIONS_H
 
